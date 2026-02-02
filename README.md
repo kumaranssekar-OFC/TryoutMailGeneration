@@ -1,1 +1,1 @@
-This branch is to update the Tryout scrips.
+This branch contains the Tryout Mail Generation Scripts 
