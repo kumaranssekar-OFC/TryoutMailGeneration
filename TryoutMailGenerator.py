@@ -245,7 +245,7 @@ class InputReader:
                 if (i == "No_Map" and "7.50" in i):
                     DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>"  + " -> Config update for SW "+ str(p1[1][0]).split("_")[0] + "-> " + " Stick update " + "( " + "SW " + str(p1[1][0]).split("_")[0] +" )" + "<br>"
                 else:
-                    DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>"  + " -> Config update for SW "+ str(p1[1][0]).split("_")[0] + "-> " + " Stick update " + "( " + "SW " + str(p1[1][0]).split("_")[0] +" )" + " ->  WA to remove the existing MAP " + "(" + str(i) +  ")"  + " -> "+ "Map Update " + "(" +  str( j ) +")" + "<br>"
+                    DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>"  + " -> Config update for SW "+ str(p1[1][0]).split("_")[0] + "-> " + " Stick update " + "( " + "SW " + str(p1[1][0]).split("_")[0] +" )" + " ->  WA to remove the existing MAP " + "(" + str(j) +  ")"  + " -> "+ "Map Update " + "(" +  str( i ) +")" + "<br>"
             base_counter  = base_counter + 1
 
     
