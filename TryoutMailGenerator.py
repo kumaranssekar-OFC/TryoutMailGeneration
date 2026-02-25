@@ -30,6 +30,7 @@ Changes:
 23-09-2025, Device Preparation for reflash is added.
 31-10-2025, Successor and Predecessor Part number organized based on release type.
 13-11-2025, Fix provided in the create_tryout_jirs_task.py
+25-02-2026, Fix in device conversion map data
 """
 import datetime
 from pathlib import Path
@@ -56,6 +57,10 @@ global JiraUrl
 global jira_url_browse
 global warn_map
 global warn_part
+
+#Version of libra
+pandas_version = pd.__version__
+print("Pandas version:", pandas_version)
 
 # Define color codes
 RED = '\033[91m'
@@ -164,7 +169,10 @@ class InputReader:
                         if (str(spn) == exactPN.replace("\n","")):
                             successor_row.append(count)
                             print("Exact_Count SPN", count-1)
-                            map_data_suc.append(df_FICD.iloc[count-1][21])
+                            if (pandas_version >= "3.0.0"):                                
+                                map_data_suc.append(df_FICD.iloc[count-1, 21])
+                            else:
+                                map_data_suc.append(df_FICD.iloc[count-1] [21])
                             found_match = True
                             break
                     if found_match:
@@ -188,7 +196,10 @@ class InputReader:
                             if (str(ppn) == exactPPN.replace("\n","")):
                                 predecessor_row.append(count_1) 
                                 print("Exact_Count PPN ", count_1-1)
-                                map_data_pre.append(df_FICD.iloc[count_1-1][21])
+                                if (pandas_version >= "3.0.0"):
+                                    map_data_pre.append(df_FICD.iloc[count_1-1, 21])
+                                else:
+                                    map_data_pre.append(df_FICD.iloc[count_1-1][21])
                                 found_match1 = True
                                 break
                         if found_match1:
@@ -229,12 +240,12 @@ class InputReader:
         _noStickPathNeeded = 0
 
         #for base_count in p1[7]:
-        for i,j in zip(map_data_suc,map_data_pre):
-            if (i == j):
-                print (f" {GREEN} Nofication : Successor map data '{i}' for {p1[0][iterator]} and Predecessor map data '{j}' for  {p1[16][iterator]} are same {RESET}")
+        for s_mapdata,p_mapdata in zip(map_data_suc,map_data_pre):
+            if (s_mapdata == p_mapdata):
+                print (f" {GREEN} Nofication : Successor map data '{s_mapdata}' for {p1[0][iterator]} and Predecessor map data '{p_mapdata}' for  {p1[16][iterator]} are same {RESET}")
                 iterator = iterator + 1  
                 DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>" + "<br>"
-            elif (i == "None" or j == "None"):
+            elif (s_mapdata == "None" or p_mapdata == "None"):
                 print (f"{CYAN}Nofication : Either Successor {p1[0][iterator]} or Predecessor {p1[16][iterator]} part numbers are not in the FCID.{RESET}")
                 iterator = iterator + 1   
                 DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>" + "<br>"         
@@ -242,10 +253,10 @@ class InputReader:
                 print (f"{RED} Warning: The Successor {p1[0][iterator]} and Predecessor {p1[16][iterator]} map data are not same in FCID. {RESET}")
                 iterator = iterator + 1
                 
-                if (i == "No_Map" and "7.50" in i):
+                if (s_mapdata == "No_Map" and "7.50" in is_mapdata):
                     DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>"  + " -> Config update for SW "+ str(p1[1][0]).split("_")[0] + "-> " + " Stick update " + "( " + "SW " + str(p1[1][0]).split("_")[0] +" )" + "<br>"
                 else:
-                    DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>"  + " -> Config update for SW "+ str(p1[1][0]).split("_")[0] + "-> " + " Stick update " + "( " + "SW " + str(p1[1][0]).split("_")[0] +" )" + " ->  WA to remove the existing MAP " + "(" + str(j) +  ")"  + " -> "+ "Map Update " + "(" +  str( i ) +")" + "<br>"
+                    DevicePreparation_Content+= "<br>  <FONT COLOR='RED'> Device preparation: </FONT> SW "  + str(p1[7][base_counter]) + " See " + "<a href = " + jira_url_browse + str(p1[17][base_counter])  + ">" + str(p1[17][base_counter]) +  "</a>"  + " -> Config update for SW "+ str(p1[1][0]).split("_")[0] + "-> " + " Stick update " + "( " + "SW " + str(p1[1][0]).split("_")[0] +" )" + " ->  WA to remove the existing MAP " + "(" + str(p_mapdata) +  ")"  + " -> "+ "Map Update " + "(" +  str(s_mapdata) +")" + "<br>"
             base_counter  = base_counter + 1
 
     
