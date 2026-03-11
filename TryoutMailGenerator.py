@@ -31,6 +31,7 @@ Changes:
 31-10-2025, Successor and Predecessor Part number organized based on release type.
 13-11-2025, Fix provided in the create_tryout_jirs_task.py
 25-02-2026, Fix in device conversion map data
+11-03-2026, Board ID updated.
 """
 import datetime
 from pathlib import Path
@@ -1568,6 +1569,11 @@ def mail_generator():
                     "031711" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb.bin"],
                     "030F11" : ["CPLD_PEXT_SBR_M3_CCS11_PM01","flash_image_nissan-aivi2-b-3gb.bin"],
                     "031111" : ["CPLD_PEXT_SBR_M3_J32V_PM01","flash_image_nissan-aivi2-b-3gb.bin"],
+                    "031E11" : ["CPLD_PEXT_SBR_PM02","flash_image_nissan-aivi2-c3-nd.bin"],
+                    "031D11" : ["CPLD_PEXT_SBR_PM02","flash_image_nissan-aivi2-c3-3gb-nd.bin"],
+                    "032311" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-c3-3gb-cpld-nd.bin"],
+                    "031911" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
+                    "031C11" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
                  }
 
     
@@ -2083,7 +2089,7 @@ if __name__ == "__main__":
    main_obj.read_tryoutMail()
    main_obj.read_image_overview()
    main_obj.getData_Jira()
-   #main_obj.destroy_txtfile()
+   main_obj.destroy_txtfile()
    mail_generator.callMail.Display()
    print (warn_map)
    print (warn_part)

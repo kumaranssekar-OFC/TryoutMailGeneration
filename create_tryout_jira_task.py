@@ -12,6 +12,7 @@ Changes:
 13-11-2025  :   Given Space in between SW in part number section at description.
 13-11-2025  :   If the release is Device Conversion, the Stick update will update as "{Please Update manually}".
 14-11-2025  :   Jira Updation with Correct part numbers.
+11-03-2026, Board ID updated.
 
 """
 
@@ -876,6 +877,11 @@ class Jira_issue_create:
                 "031711" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb.bin"],
                 "030F11" : ["CPLD_PEXT_SBR_M3_CCS11_PM01","flash_image_nissan-aivi2-b-3gb.bin"],
                 "031111" : ["CPLD_PEXT_SBR_M3_J32V_PM01","flash_image_nissan-aivi2-b-3gb.bin"],
+                "031E11" : ["CPLD_PEXT_SBR_PM02","flash_image_nissan-aivi2-c3-nd.bin"],
+                "031D11" : ["CPLD_PEXT_SBR_PM02","flash_image_nissan-aivi2-c3-3gb-nd.bin"],
+                "032311" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-c3-3gb-cpld-nd.bin"],
+                "031911" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
+                "031C11" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
                         }
             
             with open(f"{self.task_sw}.txt", 'r') as fp:
@@ -1073,7 +1079,7 @@ DS: (?) \n  |"
                         if(self.task_type == "SplUpd"):
                             partNumber_Details = f"{self.part_number[row]} (Pred: {part_numbers.strip()})"
                         else:
-                            partNumber_Details = f"{self.PrePartnumbers[row]} (Pred: {part_numbers.strip()})"
+                            partNumber_Details = f"{self.part_number[row]} (Pred: {str(self.PrePartnumbers).strip()})"
                         
                         rows += f"|*{partNumber_Details}* \n *Sister Device:* \n, ({sister_Devices})|{(str(emmc_ID))} | {hyper_flash[str(emmc_ID)][1]} | {emmc_partnumber}| {gnss_value} / {hyper_flash[str(emmc_ID)][0]} | SW_{SW_IN_Description}_{dev_prd}; \n \
 TryOut: (?)(?) \n \
@@ -1163,8 +1169,8 @@ DS: (?) \n  |"
             os.remove(f"jira_issue_extraction.txt")
         if os.path.isfile("jira_extracted_inputs.txt"):
             os.remove(f"jira_extracted_inputs.txt")
-        #if os.path.isfile(f"{self.task_sw}.txt"):
-         #   os.remove(f"{self.task_sw}.txt")
+        if os.path.isfile(f"{self.task_sw}.txt"):
+            os.remove(f"{self.task_sw}.txt")
                                     
             
 if __name__ == "__main__":
