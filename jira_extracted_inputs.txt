@@ -1,0 +1,4 @@
+ 7.518.000.00T (pred. 7.505.752.111), 2591A 9HJ1A, L42P US DA SXM, D-Sample                                     
+ 7.518.000.00U (pred. 7.505.752.170), 2591A 9MM6B, L02G BRA/LAC DA, D-Sample                                    
+ 7.518.000.00V (pred. 7.505.752.171), 2591A 9MM1B, L02G MEX DA, D-Sample                                        
+ 7.518.000.00W (pred. 7.505.752.172), 2591A 2LS1C, P02H ASEAN DA, D-Sample                                      

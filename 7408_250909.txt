@@ -1,0 +1,98 @@
+Subject:	[RN_AIVI2][TryOut] Image TryOut for Nissan A-IVI2 SOP@PgP1 (DDR4, D sample, PP9) - 
+SW 7408_250909
+
+Hello All, 
+ 
+Please perform the Image TryOut AIVI-132039 for AIVI-151990 Nissan A-IVI2 SOP@PgP1 
+(DDR4, D sample, PP9) 
+ 
+Please reply with TryOut/Checksum Information to this E-Mail.  
+@Suriya Thangavel (MS/ECR4-XC) : Please run “NewEntry2Jira.pl” and reply with the 
+results (or problems) to this E-Mail.  
+@Pham Duc Luong (RBVH/ECM22) / @Do An KHang (MS/EMC21-XC) : please confirm the 
+CD/PD in main JIRA task  
+@Tryouts Team – This tryout will be performed @COB  
+ 
+Checksums Scope A-IVI2 SW 7408 https://hi-
+dms.de.bosch.com/docushare/dsweb/View/Collection-546667 
+ 
+\\bosch.com\dfsrb\dfsde\DIV\CM\AI\SW_Releases\Nissan\0049_RN_AIVI_7513750800\00
+_SW\Production\232108_250909\Release\_nand_prd\LumenX\rnaivi2 
+\\bosch.com\dfsrb\dfsde\DIV\CM\AI\SW_Releases\Nissan\0049_RN_AIVI_7513750800\00
+_SW\Production\232108_250909\Release\images_overview_7408.txt 
+ 
+Please use the Prd_ Images  
+ 
+MAPs: 
+ 
+No Maps 
+ 
+ 
+Work-A-Round for Production required: : None / not known 
+ 
+Planned Tryout Finished : DD-MM-YYYY 
+ 
+TryOut Devices: 
+ 
+No to Sister Devices, please add the sister device. 
+Note: BoardID – Hyperflash file name assignment for the release to production 
+ 
+032311 : flash_image_nissan-aivi2-c3-3gb-cpld-nd.bin  
+031D11 : flash_image_nissan-aivi2-c3-3gb-nd.bin  
+031D11 : flash_image_nissan-aivi2-c3-3gb-nd.bin  
+031D11 : flash_image_nissan-aivi2-c3-3gb-nd.bin  
+ 
+ 
+SW 7408_250909  
+Used for AIVI-151990 Nissan A-IVI2 SOP@PgP1 (DDR4, D sample, 
+PP9) 
+ 
+ 
+SW-ID    :   283C37CH9D 
+TAG    :   AI_PRJ_RN_AIVI_23.21V08 
+ 
+\\bosch.com\dfsrb\dfsde\DIV\CM\AI\SW_Releases\Nissan\0049_RN_AIV
+I_7513750800\00_SW\Production\232108_250909\Release\_nand_prd\Lu
+menX\rnaivi2 
+\\bosch.com\dfsrb\dfsde\DIV\CM\AI\SW_Releases\Nissan\0049_RN_AIV
+I_7513750800\00_SW\Production\232108_250909\Release\images_overv
+iew_7408.txt 
+ 
+RFS GEN4     :     23.4S2025.36 
+STA8088     :     STA8088_V3_1_18_BOSCH_V_1_32_01 
+STA8089     :     STA8089_V4_5_16_10_BOSCH_V_3_76 
+ADR (S0_NA_HD)        :     AARS_IVI_S0_NA_HD_151111_01 
+ADR (S0_NA_DAB)        :     AARS_IVI_S0_NA_DAB_151111_01 
+ADR (S1_NA_FM)        :     AARS_IVI_S1_NA_FM_151217_BF12 
+ADR (S2_AC_HD)        :     AARS_IVI_S2_AC_HD_230607 
+ADR (S2_AC_FMSD)        :     AARS_IVI_S2_AC_FMSD_230607 
+ADR (S2_AC_FM)        :     AARS_IVI_S2_AC_FM_230607 
+ADR (S2_AC_DRM)        :     AARS_IVI_S2_AC_DRM_230607 
+ADR (S2_AC_DARC)        :     AARS_IVI_S2_AC_DARC_230607 
+ADR (S2_AC_DAB)        :     AARS_IVI_S2_AC_DAB_230607 
+ADR (A2_P1_DAB)        :     AARS_IVI_A2_P1_DAB_190829 
+ADR (A2_P1_DARC)        :     AARS_IVI_A2_P1_DARC_190829 
+ADR (A2_P1_FM)        :     AARS_IVI_A2_P1_FM_190829 
+ADR (A2_P1_HD)        :     AARS_IVI_A2_P1_HD_190829 
+v850 Testmanager     :     v09.15 
+iMX Testmanager     :     21.0V04 
+SBR Version     :     SBR_A_IVI2_250306 
+ 
+ 
+\\bosch.com\dfsrb\dfsde\DIV\CM\AI\SW_Releases\Nissan\0049_RN_AIV
+I_7513750800\00_SW\ADR3 
+ 
+Nissan(A-IVI2) 
+ 
+ 
+PD Configuration    :  V01.56.0.8_PN14 
+\\bosch.com\dfsrb\dfsde\DIV\CM\AI\SW_Releases\Nissan\0049_RN_AIV
+I_7513750800\01_Tools\OpethDevPackage\_PD_Delivery_State\V01.56.
+0.8_PN14\ScopeA2\PD001\N-IVI_PDconfig_ScA2_V01.56.0.8_PN14.odx-e 
+ 
+ 
+CD Configuration    :  V03.62.0.0_PN11 
+\\bosch.com\dfsrb\dfsde\DIV\CM\AI\SW_Releases\Nissan\0049_RN_AIV
+I_7513750800\01_Tools\OpethDevPackage\_CD_Delivery_State\V03.62.
+0.0_PN11\ScopeA2\CD_DEF\N-
+IVI_CD_DEFconfig_ScA2_V03.62.0.0_PN11.odx-e

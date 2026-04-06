@@ -32,10 +32,12 @@ Changes:
 13-11-2025, Fix provided in the create_tryout_jirs_task.py
 25-02-2026, Fix in device conversion map data
 11-03-2026, Board ID updated.
+17-03-2026, Update in predecessor is fixed 
 """
 import datetime
 from pathlib import Path
 import shutil
+import numpy as np
 import pandas as pd
 import re
 import win32com.client as win32
@@ -1176,7 +1178,12 @@ class InputReader:
                                                     match = re.search(part_number, sp_pn_line)
                                                     if match:
                                                         pn = sp_pn_line
-                                                        p_pn = pre_part
+                                                        if (pd.isnull(pre_part) == True):
+                                                            p_pn = ""
+                                                        else:
+                                                            p_pn = pre_part
+
+                                                            
                                                     
                                                     if ("emm" in sp_pn_line):
                                                         emmc = sp_pn_line
@@ -1193,7 +1200,12 @@ class InputReader:
                                                     match = re.search(part_number, sp_pn_line)
                                                     if match:
                                                         pn = sp_pn_line
-                                                        p_pn = pre_part
+                                                        
+                                                        if (pd.isnull(pre_part) == True):
+                                                            p_pn = ""
+                                                        else:
+                                                            p_pn = pre_part
+                                                        #p_pn = pre_part
                                                     
                                                     if ("emm" in sp_pn_line):
                                                         emmc = sp_pn_line
@@ -1574,6 +1586,9 @@ def mail_generator():
                     "032311" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-c3-3gb-cpld-nd.bin"],
                     "031911" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
                     "031C11" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
+                    "031A11" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-nd.bin"],
+                    
+
                  }
 
     

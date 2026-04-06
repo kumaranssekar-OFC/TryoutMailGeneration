@@ -12,7 +12,10 @@ Changes:
 13-11-2025  :   Given Space in between SW in part number section at description.
 13-11-2025  :   If the release is Device Conversion, the Stick update will update as "{Please Update manually}".
 14-11-2025  :   Jira Updation with Correct part numbers.
-11-03-2026, Board ID updated.
+11-03-2026  :   Board ID updated.
+17-03-2026  :   REgex for find the Reuse part number is now supprted to fetch the Alpha numeric char.
+01-04-2026  :   NaN value handled.
+06-04-2026  :   If Predecessor is not, only part number will be updated in the Jira for Image releases.
 
 """
 
@@ -31,6 +34,7 @@ from jira import JIRA
 from importlib.resources import path
 import os
 import glob
+import numpy as np
 import pandas as pd
 from JiraAccess import jira_access
 import warnings
@@ -87,7 +91,7 @@ class Jira_issue_create:
         #print ("The task type is ", type(self.task_type))
         self.task_sw   =  SWVersion[0] #input("Enter the SW \n")
         self.part_number = PartNumbers #input ("Enter the part numbers : \n").split(",")
-        self.PrePartnumbers = PrePartnumbers
+        self.PrePartnumbers = PrePartnumbers            
         #print ("The task type is ", type(self.part_number))
         self._no_of_partnumbers = len(self.part_number)
         self._no_of_Ppartnumbers = len(self.PrePartnumbers)
@@ -510,7 +514,7 @@ class Jira_issue_create:
                                                         check_reusage = 0
                                                         while (readeachline < count_of_iot):
                                                             if("-> use" in readlines_of_iot[readeachline]):
-                                                                pattern = "\d.+\d"
+                                                                pattern = "\d.+\d+(\w+)"
                                                                 reuse_partnumber = re.search(pattern, readlines_of_iot[readeachline])
                                                                 if reuse_partnumber:
                                                                     reuse_pn = reuse_partnumber.group(0)
@@ -702,7 +706,11 @@ class Jira_issue_create:
                                                             match = re.search(part_number, sp_pn_line)
                                                             if match:
                                                                 pn = sp_pn_line
-                                                                p_pn = p_part_number
+                                                                if (pd.isnull(p_part_number) == True):
+                                                                    p_pn = ""
+                                                                else:
+                                                                    p_pn = p_part_number
+                                                                        #p_pn = p_part_number
                                                                 
 
                                                             if ("emm" in sp_pn_line):
@@ -722,7 +730,7 @@ class Jira_issue_create:
                                                         check_reusage = 0
                                                         while (readeachline < count_of_iot):
                                                             if("-> use" in readlines_of_iot[readeachline]):
-                                                                pattern = "\d.+\d"
+                                                                pattern = "\d.+\d+(\w+)"
                                                                 reuse_partnumber = re.search(pattern, readlines_of_iot[readeachline])
                                                                 if reuse_partnumber:
                                                                     reuse_pn = reuse_partnumber.group(0)
@@ -799,7 +807,10 @@ class Jira_issue_create:
                                                                 match = re.search(part_number, sp_pn_line)
                                                                 if match:
                                                                     pn = sp_pn_line
-                                                                    p_pn = p_part_number
+                                                                    if (pd.isnull(p_part_number) == True):
+                                                                        p_pn = ""
+                                                                    else:
+                                                                        p_pn = p_part_number
                                                                     
 
                                                                 if ("emm" in sp_pn_line):
@@ -882,6 +893,7 @@ class Jira_issue_create:
                 "032311" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-c3-3gb-cpld-nd.bin"],
                 "031911" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
                 "031C11" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-3gb-nd.bin"],
+                "031A11" : ["CPLD_PEXT_SBR_LATTICE_PM02","flash_image_nissan-aivi2-b-nd.bin"],
                         }
             
             with open(f"{self.task_sw}.txt", 'r') as fp:
@@ -1067,9 +1079,13 @@ class Jira_issue_create:
                         if(self.task_type == "SplUpd"):
                             partNumber_Details = f"{self.part_number[row]} ( Pred: {part_numbers.strip()}) "
                         else:
-                            partNumber_Details = f"{self.PrePartnumbers[row]} ( Pred: {part_numbers.strip()})"
+                            value = self.PrePartnumbers[row]
+                            self.PrePartnumbers[row] = "" if pd.isna(value) else value
+                            #partNumber_Details = f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]})"
+                            partNumber_Details = f"{self.part_number[row]}" if pd.isna(value) else f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]}) \n *Sister Device:* \n, ({sister_Devices})"
+                            #partNumber_Details = f"{self.PrePartnumbers[row]} ( Pred: {part_numbers.strip()})"
 
-                        rows += f"|*{partNumber_Details}* \n *Sister Device:* \n, ({sister_Devices}) | {(str(emmc_ID))} | {emmc_partnumber}|[~mkr2hi]| SW_{SW_IN_Description}_{dev_prd}; \n \
+                        rows += f"|*{partNumber_Details}*| {(str(emmc_ID))} | {emmc_partnumber}|[~mkr2hi]| SW_{SW_IN_Description}_{dev_prd}; \n \
 TryOut: (?)(?) \n \
 Config: (?) \n \
 CheckSums: (?) \n \
@@ -1079,9 +1095,11 @@ DS: (?) \n  |"
                         if(self.task_type == "SplUpd"):
                             partNumber_Details = f"{self.part_number[row]} (Pred: {part_numbers.strip()})"
                         else:
-                            partNumber_Details = f"{self.part_number[row]} (Pred: {str(self.PrePartnumbers).strip()})"
+                            value = self.PrePartnumbers[row]
+                            self.PrePartnumbers[row] = "" if pd.isna(value) else value
+                            partNumber_Details = f"{self.part_number[row]}" if pd.isna(value) else f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]}) \n *Sister Device:* \n, ({sister_Devices})"
                         
-                        rows += f"|*{partNumber_Details}* \n *Sister Device:* \n, ({sister_Devices})|{(str(emmc_ID))} | {hyper_flash[str(emmc_ID)][1]} | {emmc_partnumber}| {gnss_value} / {hyper_flash[str(emmc_ID)][0]} | SW_{SW_IN_Description}_{dev_prd}; \n \
+                        rows += f"|*{partNumber_Details}*|{(str(emmc_ID))} | {hyper_flash[str(emmc_ID)][1]} | {emmc_partnumber}| {gnss_value} / {hyper_flash[str(emmc_ID)][0]} | SW_{SW_IN_Description}_{dev_prd}; \n \
 TryOut: (?)(?) \n \
 Config: (?) \n \
 CheckSums: (?) \n \
@@ -1091,7 +1109,10 @@ DS: (?) \n  |"
                         if(self.task_type == "SplUpd"):
                             partNumber_Details = f"{self.part_number[row]} (Pred: {part_numbers.strip()})"
                         else:
-                            partNumber_Details = f"{self.PrePartnumbers[row]} (Pred: {part_numbers.strip()})"                    
+                            value = self.PrePartnumbers[row]
+                            self.PrePartnumbers[row] = "" if pd.isna(value) else value
+                            partNumber_Details = f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]})"
+                            #partNumber_Details = f"{self.PrePartnumbers[row]} (Pred: {part_numbers.strip()})"                    
                     rows += f"|*{partNumber_Details}* \n *Sister Device:* \n ({sister_Devices})|{(str(emmc_ID))} | {emmc_partnumber}|[~mkr2hi]| SW_{SW_IN_Description}_{dev_prd}; \n \
 TryOut: (?)(?) \n \
 Config: (?) \n \
