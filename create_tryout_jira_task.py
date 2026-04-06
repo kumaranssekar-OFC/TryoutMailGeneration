@@ -15,7 +15,7 @@ Changes:
 11-03-2026  :   Board ID updated.
 17-03-2026  :   REgex for find the Reuse part number is now supprted to fetch the Alpha numeric char.
 01-04-2026  :   NaN value handled.
-06-04-2026  :   If Predecessor is not, only part number will be updated in the Jira for Image releases.
+06-04-2026  :   If Predecessor is not, only part number will be updated in the Jira for Image release.
 
 """
 
