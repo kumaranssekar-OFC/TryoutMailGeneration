@@ -1,1 +1,1 @@
-This branch contains the Tryout Mail Generation Scripts 
+This branch contains the Tryout Mail Generation Scripts and it is supportive documents.
