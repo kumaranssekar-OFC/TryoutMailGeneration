@@ -1,0 +1,23 @@
+defaults:
+  ProductType: Nissan
+  Release_Type: Image
+  Docushare_CollectionID: "546667"
+  Tryout_Location: COB
+  HW_List: "Tryout_devices@Cob.xlsx"
+  FCID_Version: V792
+  Base_SW: "555"
+  BaseSW_Task: "8788"
+  PD_Version: "V01.56.0.8_PN14"
+  CD_Version: "V03.62.0.0_PN11"
+  Task_Name: "Nissan A-IVI2 SOP@PgP1 (DDR4, D sample, PP9)"
+
+runs:
+  - Part_Numbers: "7.518.000.00T"
+    SW_Version: "7408_250909"
+    Jira_Main_Task: "AIVI-151990"
+    Jira_TO_Task: "AIVI-132039"
+    
+  - Part_Numbers: "7.518.000.00U"
+  - Part_Numbers: "7.518.000.00V"
+  - Part_Numbers: "7.518.000.00W"
+  
