@@ -33,6 +33,7 @@ Changes:
 25-02-2026, Fix in device conversion map data
 11-03-2026, Board ID updated.
 17-03-2026, Update in predecessor is fixed 
+18-03-2026, Added the unicode format to read the path files
 """
 import datetime
 from pathlib import Path
@@ -1809,8 +1810,8 @@ def mail_generator():
         + "<br>"
         if (NeedToRun == "Y" or NeedToRun == "y"):
             mail.HTMLBody+= "<br>"            
-            PartNumbers = p1[16]
-            Pre_PartNumbers = p1[0]
+            PartNumbers = p1[0]
+            Pre_PartNumbers = p1[16]
 
             for part,part1 in zip(PartNumbers,Pre_PartNumbers):
                 #pipe = subprocess.check_output(["perl", r"tryout_devices.pl", "-fcid", 'SWUPD_Tooling_'+ p1[11][0] +'.xlsx', "-p" , part])
@@ -1850,15 +1851,15 @@ def mail_generator():
             + "<br>"\
             + "<br>"             
             
-            PartNumbers = p1[16]
-            Pre_PartNumbers = p1[1]
+            PartNumbers = p1[0]
+            Pre_PartNumbers = p1[16]
 
             for part,part1 in zip(PartNumbers,Pre_PartNumbers):
                 # pipe = subprocess.check_output(["perl", r"tryout_devices.pl", "-fcid", 'SWUPD_Tooling_'+ p1[11][0] +'.xlsx', "-p" , part])
                 pipe1 = subprocess.check_output(["perl", r"Fetch_from_FCID.pl", "-fcid", 'SWUPD_Tooling_'+ p1[11][0] +'.xlsx', "-p" , part])
                 Byte_To_String = str(pipe1)
                 _boardID = re.search('Board_ID.+\\(', Byte_To_String)
-                mail.HTMLBody+=  f"<b>{_boardID.group(0).split('=')[1].replace('(', '')}</b> : {hyper_flash[_boardID.group(0).split('=')[1].replace(' ', '').replace('(', '')][1]}," + part+"("+ "Pred: " + part1 + ")" 
+                mail.HTMLBody+=  f"<b>{_boardID.group(0).split('=')[1].replace('(', '')}</b> : {hyper_flash[_boardID.group(0).split('=')[1].replace(' ', '').replace('(', '')][1]}" 
                 mail.HTMLBody+= "<br>"
         else:
             mail.HTMLBody+= ""
