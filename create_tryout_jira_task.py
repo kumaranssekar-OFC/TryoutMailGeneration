@@ -113,7 +113,7 @@ class Jira_issue_create:
             self.BoschJira = jira_access()
             extract_issue =self.BoschJira.issue(str(self.task_issue_id).strip())
             extract_description = extract_issue.fields.description
-            file_obj = open ("jira_issue_extraction.txt", "w")
+            file_obj = open ("jira_issue_extraction.txt", "w", encoding='utf-8')
             file_obj.writelines(str(extract_description).replace("\n", ""))
             file_obj.close()
         except AttributeError:
@@ -1080,10 +1080,8 @@ class Jira_issue_create:
                             partNumber_Details = f"{self.part_number[row]} ( Pred: {part_numbers.strip()}) "
                         else:
                             value = self.PrePartnumbers[row]
-                            self.PrePartnumbers[row] = "" if pd.isna(value) else value
-                            #partNumber_Details = f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]})"
                             partNumber_Details = f"{self.part_number[row]}" if pd.isna(value) else f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]}) \n *Sister Device:* \n, ({sister_Devices})"
-                            #partNumber_Details = f"{self.PrePartnumbers[row]} ( Pred: {part_numbers.strip()})"
+                            
 
                         rows += f"|*{partNumber_Details}*| {(str(emmc_ID))} | {emmc_partnumber}|[~mkr2hi]| SW_{SW_IN_Description}_{dev_prd}; \n \
 TryOut: (?)(?) \n \
@@ -1095,8 +1093,7 @@ DS: (?) \n  |"
                         if(self.task_type == "SplUpd"):
                             partNumber_Details = f"{self.part_number[row]} (Pred: {part_numbers.strip()})"
                         else:
-                            value = self.PrePartnumbers[row]
-                            self.PrePartnumbers[row] = "" if pd.isna(value) else value
+                            value = self.PrePartnumbers[row] 
                             partNumber_Details = f"{self.part_number[row]}" if pd.isna(value) else f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]}) \n *Sister Device:* \n, ({sister_Devices})"
                         
                         rows += f"|*{partNumber_Details}*|{(str(emmc_ID))} | {hyper_flash[str(emmc_ID)][1]} | {emmc_partnumber}| {gnss_value} / {hyper_flash[str(emmc_ID)][0]} | SW_{SW_IN_Description}_{dev_prd}; \n \
@@ -1109,10 +1106,9 @@ DS: (?) \n  |"
                         if(self.task_type == "SplUpd"):
                             partNumber_Details = f"{self.part_number[row]} (Pred: {part_numbers.strip()})"
                         else:
-                            value = self.PrePartnumbers[row]
-                            self.PrePartnumbers[row] = "" if pd.isna(value) else value
-                            partNumber_Details = f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]})"
-                            #partNumber_Details = f"{self.PrePartnumbers[row]} (Pred: {part_numbers.strip()})"                    
+                            value = self.PrePartnumbers[row] 
+                            partNumber_Details = f"{self.part_number[row]}" if pd.isna(value) else f"{self.part_number[row]} (Pred: {self.PrePartnumbers[row]}) \n *Sister Device:* \n, ({sister_Devices})"
+                                                
                     rows += f"|*{partNumber_Details}* \n *Sister Device:* \n ({sister_Devices})|{(str(emmc_ID))} | {emmc_partnumber}|[~mkr2hi]| SW_{SW_IN_Description}_{dev_prd}; \n \
 TryOut: (?)(?) \n \
 Config: (?) \n \
